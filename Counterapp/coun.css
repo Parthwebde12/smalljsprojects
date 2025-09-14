@@ -1,0 +1,42 @@
+body{
+     display:flex;
+    text-align: center;
+    padding: 1pc;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    justify-content: center;
+     margin: auto;
+}
+
+.container{
+    text-align: center;
+    background-color: aqua;
+    border: 1px black solid;
+    border-radius: 2px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+}
+
+.counter{
+    font-size: 2em;
+    margin-bottom: 2px;
+
+}
+
+button{
+    margin: auto;
+    text-transform: capitalize;
+    border:  solid;
+    cursor: pointer;
+
+}
+button:hover{
+    background-color: red;
+    color: white;
+}
+
+.clicks{
+    margin: 10px;
+    font-size: smaller;
+
+}
