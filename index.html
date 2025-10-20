@@ -1,29 +1,244 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JS Playground</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <link rel="stylesheet" href="style1.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JS Playground — Single Page (Bootstrap)</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --accent: #0d6efd;
+      --card-radius: 12px;
+    }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg,#f8fafc 0%, #e9f2ff 40%, #fff 100%);
+      color:#0f172a;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .hero {
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.65));
+      box-shadow: 0 6px 30px rgba(13, 110, 253, 0.08);
+      backdrop-filter: blur(6px);
+    }
+    .app-card {
+      border-radius: var(--card-radius);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .app-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 30px rgba(13,110,253,0.12);
+    }
+    footer { opacity: .85; }
+    .search-field {
+      max-width: 540px;
+    }
+    .muted-small { color: #6b7280; font-size: .9rem; }
+  </style>
 </head>
+<body>
 
-<body class="bg-gradient-to-r from-gray-100 via-red-90 to-red-900 text-black min-h-screen flex flex-col items-center justify-center p-6">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">JS Playground</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <h1 class="title">🚀 JS Playground</h1>
-
-  <nav class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-3xl">
-    <a href="calculator/index.html" class="menu-card bg-cyan-600 hover:bg-cyan-700">Calculator</a>
-    <a href="Bookmark/index.html" class="menu-card bg-purple-600 hover:bg-purple-700">Bookmark</a>
-    <a href="CGPA calci/index.html" class="menu-card bg-pink-600 hover:bg-pink-700">CGPA Calculator</a>
-    <a href="EmployeeApp/index.html" class="menu-card bg-green-600 hover:bg-green-700">Employee App</a>
-    <a href="Memory_Game/index.html" class="menu-card bg-orange-600 hover:bg-orange-700">Memory Game</a>
-    <a href="Movie_APP/index.html" class="menu-card bg-blue-600 hover:bg-blue-700">Movie App</a>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#apps">Apps</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        </ul>
+      </div>
+    </div>
   </nav>
-  <footer class=" bg-gradient-to-red bg-pink-600" >
-    @Parth wakodikar. all Rights reserved
-</footer>
+
+  <main class="container py-5">
+    <div class="hero p-4 p-md-5 mb-5">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1 class="display-6 mb-2">🚀 JS Playground</h1>
+          <p class="lead mb-3">A compact collection of small JavaScript projects — clean, responsive, and easy to extend.</p>
+
+          <div class="input-group search-field">
+            <span class="input-group-text bg-white border-end-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11 6a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/><path d="M12.9 11.3 15 13.4 13.4 15l-2.1-2.1A6.5 6.5 0 1 1 12.9 11.3z"/></svg></span>
+            <input id="search" type="search" class="form-control border-start-0" placeholder="Search projects (press / to focus)" aria-label="Search projects">
+            <button id="clearSearch" class="btn btn-outline-secondary d-none" type="button">Clear</button>
+          </div>
+          <small class="text-muted d-block mt-2">Filter projects by name or description.</small>
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+          <a href="#apps" class="btn btn-primary btn-lg">Explore Apps</a>
+        </div>
+      </div>
+    </div>
+
+    <section id="apps" class="mb-5">
+      <h2 class="h4 mb-3">Projects</h2>
+
+      <div id="projectsGrid" class="row g-3">
+        <!-- Cards rendered by JS -->
+      </div>
+    </section>
+
+    <section id="about" class="pt-4">
+      <h2 class="h5">About</h2>
+      <p class="text-muted small">This single-page layout uses Bootstrap for a clean and responsive presentation. Each card links to the project folder — ensure paths match your filesystem structure.</p>
+    </section>
+  </main>
+
+  <footer class="bg-white border-top py-3">
+    <div class="container d-flex justify-content-between small">
+      <div>© Parth Wakodikar</div>
+      <div class="text-muted">All rights reserved</div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS (with Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Data for projects - keep paths as in your filesystem
+    const projects = [
+      { title: 'Calculator', desc: 'Basic calculator with keyboard support.', path: 'calculator/index.html' },
+      { title: 'Bookmark', desc: 'Save and manage quick links locally.', path: 'Bookmark/index.html' },
+      { title: 'CGPA Calculator', desc: 'Calculate GPA/CGPA for semesters.', path: 'CGPA calci/index.html' },
+      { title: 'Employee App', desc: 'Simple CRUD demo for employees.', path: 'EmployeeApp/index.html' },
+      { title: 'Memory Game', desc: 'Classic card matching game.', path: 'Memory_Game/index.html' },
+      { title: 'Movie App', desc: 'Search and browse movies.', path: 'Movie_APP/index.html' }
+    ];
+
+    // Utility: sanitize text for search
+    const normalize = s => s.toLowerCase();
+
+    // Render project cards
+    function renderProjects(list) {
+      const grid = document.getElementById('projectsGrid');
+      grid.innerHTML = '';
+      if (!list.length) {
+        grid.innerHTML = '<div class="col-12"><div class="alert alert-info mb-0">No projects found.</div></div>';
+        return;
+      }
+      list.forEach(p => {
+        const col = document.createElement('div');
+        col.className = 'col-12 col-sm-6 col-lg-4';
+        col.innerHTML = `
+          <div class="card app-card h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title mb-1">${escapeHtml(p.title)}</h5>
+              <p class="card-text text-muted small mb-3">${escapeHtml(p.desc)}</p>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <a href="${encodeURI(p.path)}" class="btn btn-outline-primary btn-sm" aria-label="Open ${escapeHtml(p.title)}">Open</a>
+                <button class="btn btn-sm btn-outline-secondary copy-btn" data-path="${encodeURI(p.path)}" type="button" title="Copy path">Copy path</button>
+              </div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(col);
+      });
+    }
+
+    // Simple HTML escaper for safety
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    // Live filter
+    function filterProjects(query) {
+      const q = normalize(query.trim());
+      if (!q) return projects.slice();
+      return projects.filter(p => normalize(p.title).includes(q) || normalize(p.desc).includes(q));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const search = document.getElementById('search');
+      const clearBtn = document.getElementById('clearSearch');
+
+      // Initial render
+      renderProjects(projects);
+
+      // Search input handler
+      search.addEventListener('input', () => {
+        const val = search.value;
+        const results = filterProjects(val);
+        renderProjects(results);
+        clearBtn.classList.toggle('d-none', !val);
+      });
+
+      // Clear button
+      clearBtn.addEventListener('click', () => {
+        search.value = '';
+        search.dispatchEvent(new Event('input'));
+        search.focus();
+        clearBtn.classList.add('d-none');
+      });
+
+      // Keyboard shortcut: press "/" to focus search (if not typing in an input)
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) {
+          e.preventDefault();
+          search.focus();
+          search.select();
+        }
+      });
+
+      // Smooth scroll for internal links
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          const target = document.querySelector(link.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Copy path buttons (event delegation)
+      document.getElementById('projectsGrid').addEventListener('click', (e) => {
+        const btn = e.target.closest('.copy-btn');
+        if (!btn) return;
+        const path = decodeURI(btn.getAttribute('data-path') || '');
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(path).then(() => {
+            btn.textContent = 'Copied';
+            setTimeout(() => btn.textContent = 'Copy path', 1200);
+          }, () => {
+            alert('Unable to copy to clipboard.');
+          });
+        } else {
+          // Fallback
+          const ta = document.createElement('textarea');
+          ta.value = path;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); btn.textContent = 'Copied'; }
+          catch { alert('Unable to copy to clipboard.'); }
+          document.body.removeChild(ta);
+          setTimeout(() => btn.textContent = 'Copy path', 1200);
+        }
+      });
+
+      // Optional: allow Enter in search to open first result
+      search.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const firstLink = document.querySelector('#projectsGrid a.btn');
+          if (firstLink) {
+            firstLink.click();
+          }
+        }
+      });
+    });
+  </script>
 </body>
 </html>
