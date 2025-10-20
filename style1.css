@@ -1,0 +1,23 @@
+
+.title{
+    @apply text-4xl font-bold mb-6 text-cyan-40 drop-shadow-lg;
+    animation: glow 3s infinite alternate-reverse
+}
+.menu-card {
+  @apply block p-6 rounded-2xl shadow-lg text-center font-semibold text-lg transition transform;
+}
+
+.menu-card:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 133, 133, 0.4);
+}
+
+
+@keyframes glow{
+    from {
+        text-decoration: dotted; text-shadow: 0 0 60px red, 0 0 10px purple;
+    }
+    to{
+        text-decoration: wavy; text-shadow: 0 0 90px plum , 0 0 30px aliceblue
+    }
+}
